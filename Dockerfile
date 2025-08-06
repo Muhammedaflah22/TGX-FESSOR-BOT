@@ -1,11 +1,10 @@
-FROM python:3.10
+FROM python:3.10-slim
+
 RUN apt update && apt upgrade -y
 RUN apt install git -y
-COPY requirements.txt /requirements.txt
 
-RUN cd /
-RUN pip install -U pip && pip install -U -r requirements.txt
 WORKDIR /app
+COPY . /app
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
-CMD ["bash", "start.sh"]
+CMD ["python3", "bot.py"]
